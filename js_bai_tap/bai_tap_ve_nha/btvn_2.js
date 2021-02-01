@@ -17,7 +17,7 @@ function getEle(id) {
 getEle('tinhBTVN_2').addEventListener('click', () => {
 
     // Lấy giá trị từ input người dùng nhập
-    var chucDanh = parseFloat(getEle('chucDanh').value);
+    var chucDanh = getEle('chucDanh').value;
     console.log('Chức danh:' + chucDanh);
 
     //Xét giá trị đầu vào về ký tự viết thường
@@ -25,21 +25,21 @@ getEle('tinhBTVN_2').addEventListener('click', () => {
     console.log('Chức danh viết thường:' + chucDanh);
 
     //Các biến hứng kết quả
-    var output_2 = 'Hi!';
+    var output_2 = '';
 
     // Giải thuật
     switch (chucDanh) {
         case 'b':
-            output_2 += ' Chào Bố!'
+            output_2 = ' Chào Bố!'
             break;
         case 'm':
-            output_2 += ' Chào Mẹ!'
+            output_2 = ' Chào Mẹ!'
             break;
         case 'a':
-            output_2 += ' Chào Anh Trai!'
+            output_2 = ' Chào Anh Trai!'
             break;
         case 'e':
-            output_2 += ' Chào Em Gái!'
+            output_2 = ' Chào Em Gái!'
             break;
 
         default:
@@ -49,5 +49,5 @@ getEle('tinhBTVN_2').addEventListener('click', () => {
 
     // Đầu ra
     console.log(output_2);
-    getEle('kqBTVN_2').innerHTML = output_2;
+    getEle('kqBTVN_2').value = output_2;
 });

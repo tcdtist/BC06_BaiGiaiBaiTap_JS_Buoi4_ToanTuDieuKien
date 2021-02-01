@@ -47,7 +47,7 @@ getEle('tinhBTVN_1').addEventListener('click', () => {
     }
 
     // Đầu ra
-    var output_1 = "Thứ tự 3 số tăng dần là: " + num_1 + " < " + num_2 + " < " + num_3;
+    var output_1 = "Thứ tự 3 số tăng dần là:     " + num_1 + "  <  " + num_2 + "  <  " + num_3;
     console.log(output_1);
-    getEle('kqBTVN_1').innerHTML = output_1;
+    getEle('kqBTVN_1').value = output_1;
 });
