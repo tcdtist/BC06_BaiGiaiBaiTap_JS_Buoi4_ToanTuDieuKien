@@ -4,14 +4,25 @@
     margin: 0;
     text-decoration: none;
 }
+body {
+    height: 1600px;
+    position: relative;
+}
 .title {
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     text-transform: uppercase;
     margin-top: 2rem;
+    font-size: 2rem;
 }
-.thong-bao{
+.thong-bao {
     color: red !important;
+}
+
+.copyright {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
 }
 
 @import "./variables";

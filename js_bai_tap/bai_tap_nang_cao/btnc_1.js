@@ -1,88 +1,37 @@
-/**
- * tạo 3 biến ngày, tháng, năm 
- * 
- * nếu, là các tháng 1,3,5,7,8,10,12
- *      nếu, là ngày 31/12 => ngày tiếp theo là ngày 1/1/nam + 1
- *      nếu, là ngày 31 => ngày tiếp theo là ngày 1
- *                      => thang = thang + 1
- *      các ngày còn lại + 1
- * 
- * nếu, là các tháng 4,6,9,11
- *      nếu, là ngày 30/12 => ngày tiếp theo = 1
- *                        => thang = thang + 1
- *                        => nam = nam + 1
- *      nếu, là ngày 30 => thang = thang + 1
- *                      => ngay = 1
- *      các ngày còn lại + 1
- * 
- * nếu, là tháng 2 thì phải xét năm nhuận hay k nhuận
- *  nếu là năm nhuận thì điều kiện là: năm phải chia hết cho 400 hoặc (chia hết ch0 4 và k chia hết cho 100)
- *  nếu, năm nhuận:
- *      nếu ngày = 29 => ngay = 1
- *          thang = thang + 1
- *          các ngày còn lại + 1
- *  nếu, năm không nhuận:
- *      nếu ngày = 28 => ngay = 1
- *          thang = thang + 1
- *          các ngày còn lại + 1
- * 
- * 
- * 
- *    
- * xuất ngày tiếp theo          
- * 
- */
+/* 
+hàm chạy() {
+    *DOM lấy giá trị dữ liệu và parse về number luôn
 
-function tiepTheo() {
-    var ngay = document.getElementById("ngay").value;
-    var thang = document.getElementById("thang").value;
-    var nam = document.getElementById("nam").value;
+    if(xét điều kiện giá trị nhập đúng){không đúng return về lỗi và thoát hàm luôn}
 
-    ngay = parseInt(ngay);
-    thang = parseInt(thang);
-    nam = parseInt(nam);
-
-    if (thang == 1 || thang == 3 || thang == 5 || thang == 7 || thang == 8 || thang == 10 || thang == 12) {
-        if (ngay == 31 && thang == 12) {
-            ngay = 1;
-            thang = 1;
-            nam = nam + 1;
-        } else if (ngay == 31) {
-            ngay = 1;
-            thang = thang + 1;
-        } else {
-            ngay = ngay + 1;
-        }
-    } else if (thang == 4 || thang == 6 || thang == 9 || thang == 11) {
-        if (ngay == 30 && thang == 12) {
-            ngay = 1;
-            thang = 1;
-            nam = nam + 1;
-        } else if (ngay == 30) {
-            ngay = 1;
-            thang = thang + 1;
-        } else {
-            ngay = ngay + 1;
-        }
-    } else if (thang == 2) {
-        if (nam % 400 == 0 || ((nam % 4 == 0) && (nam % 100 != 0))) {
-            if (ngay == 29) {
-                ngay = 1;
-                thang = thang + 1;
-            } else {
-                ngay = ngay + 1;
-            }
-        } else if (ngay == 28) {
-            ngay = 1;
-            thang = thang + 1;
-        } else {
-            ngay = ngay + 1;
-        }
+    switch(tháng do ng dùng nhập){
+    case 1,5,7,8,10,12:
+        + xét tháng 12 để chuyển năm
+        + xét ngày == 31 để chuyển tháng
+        + xét ngày == 1 để dời về tháng
+        + còn lại tăng hoặc giảm 1
+    case 4,6,9,11:
+        + xét ngày == 30 để chuyển tháng
+        + xét ngày == 1 để dời về tháng
+        + còn lại tăng hoặc giảm 1
+    case 2,3: 
+        - xét năm nhuận:
+            + ngày == 29 và tháng == 2 => chuyển tháng
+            + ngày == 1 và tháng == 2 => dời về tháng
+            + ngày == 1 và tháng == 3 => dời về 29
+        - năm không nhuận:
+            + ngày == 28 và tháng == 2 => chuyển tháng
+            + ngày == 1 và tháng == 2 => dời về tháng
+            + ngày == 1 và tháng == 3 => dời về 28
+        - còn: ngày == 31 và tháng == 3 => chuyển tháng
+        - còn lại tăng hoặc giảm 1
     }
-
-    var ketQua = ngay + "/" + thang + "/" + nam;
-    document.getElementById("ketQuaTiepTheo").innerHTML = ketQua;
-}
+    kết quả 
+    DOM hiển thị ra màn hình: vd: nhập ngày == 1; tháng == 3; năm == 2020
+        + Ngày hôm trước: 	29/2/2020
+        + Ngày hôm sau:		2/3/2020
+} 
+*/
 
 function getEle(id) {
     return document.getElementById(id);
@@ -96,7 +45,7 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
     var thangTiepTheo = thangNhap_1, thangTruocDo = thangNhap_1;
     var namTiepTheo = namNhap_1, namTruocDo = namNhap_1;
 
-    if (ngayNhap_1 < 1 || ngayNhap_1 > 31 || thangNhap_1 < 1 || thangNhap_1 > 12 || namNhap_1 < 0) {
+    if (ngayNhap_1 < 1 || ngayNhap_1 > 31 || thangNhap_1 < 1 || thangNhap_1 > 12 || namNhap_1 < 0 || ngayNhap_1 > 29 && thangNhap_1 === 2) {
         alert("Ngày tháng năm nhập không hợp lệ !")
         return;
     }
@@ -110,13 +59,14 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
         case 12:
             switch (ngayNhap_1) {
                 case 1:
-                    if (thangNhap_1 == 1) { console.log("ádjhgasjd"); ngayTruocDo == 31; thangTruocDo == 12; namTruocDo-- }
-                    else { ngayTruocDo == 31; thangTruocDo--; namTruocDo; }
+                    if (thangNhap_1 === 1) { ngayTruocDo = 31; thangTruocDo = 12; namTruocDo-- }
+                    else if (thangNhap_1 === 8) { ngayTruocDo = 31, thangTruocDo--, namTruocDo }
+                    else { ngayTruocDo = 30; thangTruocDo--; namTruocDo; }
                     ngayTiepTheo++; thangTiepTheo; namTiepTheo;
                     break;
                 case 31:
-                    if (thangNhap_1 == 12) { ngayTiepTheo == 1; thangTiepTheo == 1; namTiepTheo++ }
-                    else { ngayTiepTheo == 1; thangTiepTheo++; namTiepTheo; }
+                    if (thangNhap_1 === 12) { ngayTiepTheo = 1; thangTiepTheo = 1; namTiepTheo++ }
+                    else { ngayTiepTheo = 1; thangTiepTheo++; namTiepTheo; }
                     ngayTruocDo--; thangTruocDo; namTruocDo;
                     break;
                 default:
@@ -131,13 +81,16 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
         case 11:
             switch (ngayNhap_1) {
                 case 1:
-                    ngayTruocDo == 30; thangTruocDo--; namTruocDo;
+                    ngayTruocDo = 31; thangTruocDo--; namTruocDo;
                     ngayTiepTheo++; thangTiepTheo; namTiepTheo;
                     break;
                 case 30:
-                    ngayTiepTheo == 1; thangTiepTheo++; namTiepTheo;
+                    ngayTiepTheo = 1; thangTiepTheo++; namTiepTheo;
                     ngayTruocDo--; thangTruocDo; namTruocDo;
                     break;
+                case 31:
+                    alert("Ngày tháng năm nhập không hợp lệ !");
+                    return;
                 default:
                     ngayTruocDo--; thangTruocDo; namTruocDo;
                     ngayTiepTheo++; thangTiepTheo; namTiepTheo;
@@ -146,29 +99,34 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
             break;
         case 2:
         case 3:
-            if (nam % 100 == 0 && nam % 400 == 0 || nam % 4 == 0 && nam % 100 != 0) {
-                switch (ngayNhap_1) {
-                    case 1:
-                        if (thangNhap_1 == 3) { ngayTruocDo == 29; thangTruocDo--; namTruocDo }
-                        else { ngayTruocDo == 31; thangTruocDo--; namTruocDo; }
-                        ngayTiepTheo++; thangTiepTheo; namTiepTheo;
-                        break;
-                    case 29:
-                        ngayTiepTheo == 1; thangTiepTheo++; namTiepTheo;
-                        ngayTruocDo--; thangTruocDo; namTruocDo;
-                        break;
-                    default:
-                        ngayTruocDo--; thangTruocDo; namTruocDo;
-                        ngayTiepTheo++; thangTiepTheo; namTiepTheo;
-                        break;
-                }
+            switch (ngayNhap_1) {
+                case 1:
+                    if (thangNhap_1 === 3) {
+                        if (checkNamNhuan(namNhap_1)) { ngayTruocDo = 29; thangTruocDo--; namTruocDo; }
+                        else { ngayTruocDo = 28; thangTruocDo--; namTruocDo; }
+                    } else { ngayTruocDo = 31; thangTruocDo--; namTruocDo; }
+                    ngayTiepTheo++; thangTiepTheo; namTiepTheo;
+                    break;
+                case 28:
+                case 29:
+                    if (thangNhap_1 === 2) {
+                        ngayTiepTheo = 1; thangTiepTheo++; namTiepTheo;
+                    } else { ngayTiepTheo++; thangTiepTheo; namTiepTheo; }
+                    ngayTruocDo--; thangTruocDo; namTruocDo;
+                    break;
+                case 31:
+                    ngayTiepTheo = 1; thangTiepTheo++; namTiepTheo;
+                    ngayTruocDo--; thangTruocDo; namTruocDo;
+                    break;
+                default:
+                    ngayTruocDo--; thangTruocDo; namTruocDo;
+                    ngayTiepTheo++; thangTiepTheo; namTiepTheo;
+                    break;
             }
-
             break;
-
         default:
-            alert("Tháng nhập không hợp lệ !")
-            break;
+            alert("Mình xét thiếu gì ư ?")
+            return;
     }
 
     // Đầu ra
@@ -179,3 +137,8 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
     getEle('kqBTNC_pre_1').value = output_pre_1;
     getEle('kqBTNC_next_1').value = output_next_1;
 });
+
+checkNamNhuan = (namNhap_1) => {
+    if (namNhap_1 % 100 === 0 && namNhap_1 % 400 === 0 || namNhap_1 % 4 === 0 && namNhap_1 % 100 != 0) return true;
+    return false;
+} 
