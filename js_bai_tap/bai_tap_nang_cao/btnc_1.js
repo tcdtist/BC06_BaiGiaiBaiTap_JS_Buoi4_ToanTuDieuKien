@@ -45,7 +45,7 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
     var thangTiepTheo = thangNhap_1, thangTruocDo = thangNhap_1;
     var namTiepTheo = namNhap_1, namTruocDo = namNhap_1;
 
-    if (ngayNhap_1 < 1 || ngayNhap_1 > 31 || thangNhap_1 < 1 || thangNhap_1 > 12 || namNhap_1 < 0 || ngayNhap_1 > 29 && thangNhap_1 === 2) {
+    if (ngayNhap_1 < 1 || ngayNhap_1 > 31 || thangNhap_1 < 1 || thangNhap_1 > 12 || namNhap_1 < 0 || ngayNhap_1 > 29 && thangNhap_1 === 2 || !checkNamNhuan() && ngayNhap_1 > 28 && thangNhap_1 === 2) {
         alert("Ngày tháng năm nhập không hợp lệ !")
         return;
     }
@@ -110,7 +110,8 @@ getEle('tinhBTNC_1').addEventListener('click', () => {
                 case 28:
                 case 29:
                     if (thangNhap_1 === 2) {
-                        ngayTiepTheo = 1; thangTiepTheo++; namTiepTheo;
+                        if (checkNamNhuan(namNhap_1) && ngayNhap_1 === 28) { ngayTiepTheo = 29; thangTiepTheo; namTiepTheo; }
+                        else { ngayTiepTheo = 1; thangTiepTheo++; namTiepTheo; }
                     } else { ngayTiepTheo++; thangTiepTheo; namTiepTheo; }
                     ngayTruocDo--; thangTruocDo; namTruocDo;
                     break;
